@@ -1,0 +1,34 @@
+#include<climits>
+using namespace std;
+int findMaxSquareWithAllZeros(int** arr, int row, int col){
+    
+    /* Don't write main().
+     *  Don't read input, it is passed as function argument.
+     *  Return output and don't print it.
+     *  Taking input and printing output is handled automatically.
+     */
+    if(row==0 && col==0){
+        return 0;
+    }
+    int dp[row][col];
+    
+    for(int i=0;i<row;i++)
+        dp[i][0] = arr[i][0]^1;
+    
+    for(int j=0;j<col;j++)
+        dp[0][j] = arr[0][j]^1;
+    
+    int max_final = INT_MIN;
+    for(int i=1;i<row;i++){
+        for(int j=1;j<col;j++){
+            if(arr[i][j]==0)
+            dp[i][j] =1+ min(dp[i-1][j-1],min(dp[i-1][j],dp[i][j-1]));
+            else
+                dp[i][j]=0;
+            
+            max_final = max(max_final,dp[i][j]);
+        }
+    }
+    
+    return max_final;
+}
