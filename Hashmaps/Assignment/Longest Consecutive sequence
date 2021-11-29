@@ -1,0 +1,77 @@
+
+#include <vector>
+/*#include <unordered_map>
+
+using namespace std;
+
+vector<int> longestConsecutiveIncreasingSequence(int *arr, int n){
+   
+   unordered_map<int,bool>mp;
+        for (int i=0;i<n;i++){
+            mp[arr[i]]=true;
+        }
+        
+        vector<int> res;
+        for (int i=0;i<n;i++){
+            int mx=1;      
+            int fd = arr[i];
+            
+            mp.erase(arr[i]);
+            while (mp.find(fd+1)!=mp.end()){
+                mx++;
+                mp.erase(fd+1);
+                fd++;
+            }
+            
+            fd = arr[i];
+            while (mp.find(fd-1)!=mp.end()){
+                mx++;
+                mp.erase(fd-1);
+                fd--;
+            }
+            
+            if (mx>res){
+                res=mx;
+            }
+        }
+        
+        return res;
+    }
+    */
+
+
+  #include <vector>
+  #include <unordered_map>
+
+  vector<int> longestConsecutiveIncreasingSequence(int *arr, int n){
+	
+    unordered_map <int ,bool> m;
+   
+    for(int i=0;i<n ;i++)// special handle for duplicates
+    {
+        m[arr[i]] ++;
+    
+     }
+
+   vector<int> ans;
+    int mx=1;
+    for( int i=0;i<n ;i++)
+    { 
+       if(m.count(arr[i]-1)>0) {
+			continue;
+       }
+        int j =arr[i];
+        while(m.count(j)>0) {
+            j++;
+        }
+        //if new longest consecutive seq is 
+        if(j-arr[i]>mx) {
+            ans={arr[i],j-1};
+            mx=j-arr[i];
+        }
+        // cout<< nsize<<" " <<size<<" "<<start<<" " << nstart<<endl;
+    }
+
+    return ans;
+}
+
