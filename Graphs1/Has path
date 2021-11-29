@@ -1,0 +1,62 @@
+#include <iostream>
+using namespace std;
+
+
+bool haspath(int **edges,int V,int v1,int v2,bool *visited){
+    if(edges[v1][v2]==1){
+        return true;
+    }
+    
+    visited[v1]=true;
+    bool res=false;
+    for(int i=0;i<V;i++){
+        if(i==v1){
+            continue;
+        }
+     
+        if(edges[v1][i]==1 && !visited[i]){
+            
+            res=haspath(edges,V,i,v2,visited);
+            if( res== true)
+               return true;
+        }  
+    
+    }
+    return res;
+    
+    
+}
+
+int main() {
+    int V,E;
+    cin>>V>>E;
+    
+    int **edges=new int*[V];
+    for(int i=0;i<V;i++){
+        edges[i]=new int[V];
+        for(int j=0;j<V;j++){
+            edges[i][j]=0;
+        }
+    }
+    for(int i=0;i<E;i++){
+        int f,s;
+        cin>>f>>s;
+        edges[f][s]=1;
+        edges[s][f]=1;
+    }
+   
+    bool *visited=new bool[V];
+    for(int i=0;i<V;i++){
+        visited[i]=false;
+    }
+    int v1,v2;
+    cin>>v1>>v2;
+    haspath(edges,V,v1,v2,visited);
+   
+    delete []visited;
+    for(int i=0;i<V;i++){
+        delete[] edges[i];
+    }
+    delete[]edges;
+    return 0;
+}
