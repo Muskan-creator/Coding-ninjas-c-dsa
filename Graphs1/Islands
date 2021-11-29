@@ -1,0 +1,56 @@
+#include <iostream>
+#include <queue>
+using namespace std;
+
+void connected_comps(int **edges, bool *visited, int n, int st)
+{
+    queue<int> q;
+    q.push(st);
+    while(!q.empty())
+    {
+        int pres = q.front();
+        q.pop();
+        visited[pres] = true;
+        for(int i=0; i<n; i++)
+        {
+            if(edges[pres][i]==1 && visited[i]==false)
+            {
+                q.push(i);
+                visited[i] = true;
+            }
+        }
+    }
+    return ;
+}
+int main() 
+{
+    // Write your code here
+	int v, e; cin>>v>>e;
+    int **edges = new int *[v];
+    for(int i=0; i<v; i++)
+    {
+        edges[i] = new int[v];
+        for(int j=0; j<v; j++)
+            edges[i][j] = 0;
+    }
+	for(int i=0; i<e; i++)
+    {
+        int v1, v2; cin>>v1>>v2;
+        edges[v1][v2] = 1;
+        edges[v2][v1] = 1;
+    }
+    bool *visited = new bool[v];
+    for(int i=0; i<v; i++)
+        visited[i] = false;
+    int c=0;
+    for(int i=0; i<v; i++)
+    {
+        if(visited[i]==false)
+        {
+            connected_comps(edges, visited, v, i);
+            c++;
+        }
+    }
+    cout<<c;
+    
+}
