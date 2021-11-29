@@ -1,0 +1,25 @@
+
+#include<unordered_map>
+#include<vector>
+string uniqueChar(string str) {
+    string v;
+ unordered_map<char,bool> unique; 
+  int index = 0;  
+  for(int i=0;i<str.length();i++)
+  { 
+ 
+      unique[str[i]]++; 
+    }
+    for(int i=0;i<str.length();i++){
+       if(unique.count(str[i])>0){
+          continue;
+          }
+       
+        unique[str[i]]=true;
+        v.insert(str[i]);
+
+
+    }
+    return v;
+ 
+}
