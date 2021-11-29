@@ -1,0 +1,48 @@
+# include<vector>
+# include<climits>
+int solve(string s, string v) {
+    // Write your code here
+int m=s.length();
+    int n=v.length();
+    vector<vector<int>> a(m+1,vector<int>(n+1));
+    
+    for(int i=0; i<=m; i++){
+        a[i][0]=1;
+        
+    }
+     for(int i=0; i<=n; i++){
+        a[0][i]=INT_MAX-100;
+        
+    }
+    
+    for(int i=1; i<=m; i++){
+        for(int j=1; j<=n; j++){
+            int a1=a[i-1][j];
+           char ch=s[m-i];
+            int k;
+            for(k=n-j; k<n; k++){
+                if(v[k]==ch){
+                    break;
+                }
+            }
+            if(k==n){
+                a[i][j]=1;
+                continue;
+            }
+            int a2=a[i-1][n-k-1]+1;
+            a[i][j]=min(a1,a2);
+            
+            
+        }
+    }
+    
+    
+    
+    
+    
+    return a[m][n];
+    
+    
+    
+    
+}
